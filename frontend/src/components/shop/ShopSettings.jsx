@@ -29,7 +29,7 @@ const ShopSettings = () => {
         setAvatar(reader.result);
         axios
           .put(
-            `${server}/shop/update-shop-tutorial-avatar`,
+            `${server}/shop/update-shop-avatar`,
             { avatar: reader.result },
             {
               withCredentials: true,

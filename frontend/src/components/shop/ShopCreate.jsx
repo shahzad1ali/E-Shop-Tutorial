@@ -39,7 +39,7 @@ const ShopCreate = () => {
       avatarUrl = cloudRes.data.secure_url;
     }
 
-    const { data } = await axios.post(`${server}/shop/create-shop-tutorial`, {
+    const { data } = await axios.post(`${server}/shop/create-shop`, {
       name,
       email,
       password,
