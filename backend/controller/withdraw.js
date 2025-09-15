@@ -8,6 +8,8 @@ const sendMail = require("../utils/sendMail");
 const Shop = require("../model/shop");
 const router = express.Router();
 
+
+
 // create withdraw request -- only for seller
 router.post(
   "/create-withdraw-request",
@@ -23,7 +25,7 @@ router.post(
 
       // send email to seller
       await sendMail({
-        email: req.seller.email, // ✅ corrected
+        email: req.seller.email, 
         subject: "Withdraw Request",
         message: `Hello ${req.seller.name}, your withdraw request of ${amount}$ is processing. It will take 3 to 7 days to processing!`,
       });
