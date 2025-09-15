@@ -24,7 +24,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const user = { name, email, password, avatar: { url: avatarUrl || "" } };
     const activationToken = createActivationToken(user);
-    const activationUrl = `https://e-shop-tutorial-juch.vercel.app/activation/${activationToken}`;
+    const activationUrl = `https://e-shop-tutorial-tutorial-juch.vercel.app/activation/${activationToken}`;
 
     await sendMail({
       email: user.email,
