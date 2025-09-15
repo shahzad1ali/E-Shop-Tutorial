@@ -78,7 +78,7 @@ router.get(
 
 // delete product of shop
 router.delete(
-  "/delete-shop-tutorial-product/:id",
+  "/delete-shop-product/:id",
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {

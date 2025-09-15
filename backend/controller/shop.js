@@ -13,7 +13,7 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 const sendShopToken = require("../utils/shopToken");
 
 // CREATE SHOP
-router.post("/create-shop-tutorial", async (req, res, next) => {
+router.post("/create-shop", async (req, res, next) => {
   try {
     const { name, email, password, avatarUrl, address, phoneNumber, zipCode } = req.body;
 
@@ -33,7 +33,7 @@ router.post("/create-shop-tutorial", async (req, res, next) => {
     };
 
     const activationToken = createActivationToken(shop);
-    const activationUrl = `https://e-shop-tutorial-tutorial-juch.vercel.app/seller/activation/${activationToken}`;
+    const activationUrl = `https://e-shop-tutorial-juch.vercel.app/seller/activation/${activationToken}`;
 
     await sendMail({
       email: shop.email,
@@ -196,7 +196,7 @@ router.get(
 //update profile picture
 
 router.put(
-  "/update-shop-tutorial-avatar",
+  "/update-shop-avatar",
   isSeller,
   upload.single("image"),
   catchAsyncError(async (req, res, next) => {

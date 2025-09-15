@@ -209,7 +209,7 @@ export const categoriesData = [
     title: "Accesories",
     subTitle: "",
     image_Url:
-      "https://img.freepik.com/free-vector/ordering-goods-online-internet-store-online-shop-tutorialping-niche-e-commerce-website-mother-buying-babies-clothes-footwear-toys-infant-accessories_335657-2345.jpg?w=2000",
+      "https://img.freepik.com/free-vector/ordering-goods-online-internet-store-online-shopping-niche-e-commerce-website-mother-buying-babies-clothes-footwear-toys-infant-accessories_335657-2345.jpg?w=2000",
   },
   {
     id: 4,
