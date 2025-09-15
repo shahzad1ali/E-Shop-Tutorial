@@ -33,7 +33,7 @@ router.post("/create-shop", async (req, res, next) => {
     };
 
     const activationToken = createActivationToken(shop);
-    const activationUrl = `https://e-shop-tutorial-juch.vercel.app/seller/activation/${activationToken}`;
+    const activationUrl = `https://multivendor-self.vercel.app/seller/activation/${activationToken}`;
 
     await sendMail({
       email: shop.email,
