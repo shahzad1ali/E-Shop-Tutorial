@@ -72,17 +72,19 @@ const mongoose = require("mongoose");
 const connectDbWithRetry = async (dbURI, maxRetries) => {
   for (let retries = 0; retries < maxRetries; retries++) {
     try {
+      console.log("🔗 Connecting to MongoDB:", dbURI);
       await mongoose.connect(dbURI, {
         connectTimeoutMS: 20000,
       });
       console.log("✅ Connected to MongoDB");
       break;
     } catch (err) {
-      console.log("❌ Failed to connect:", err.message);
+      console.error("❌ MongoDB connection failed:", err.message);
       if (retries === maxRetries - 1) {
-        console.error("Max retries reached.");
+        console.error("Max retries reached. Exiting...");
         process.exit(1);
       }
+      console.log("Retrying in 5 seconds...");
       await new Promise((resolve) => setTimeout(resolve, 5000));
     }
   }
