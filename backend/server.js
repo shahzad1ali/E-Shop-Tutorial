@@ -44,11 +44,13 @@
 
 
 
+
+
 const { default: mongoose } = require("mongoose");
 const app = require("./app");
 const connectDB = require("./db/dataBase");
 const cloudinary = require("cloudinary").v2;
-require("dotenv").config(); // ✅ fixed path
+require("dotenv").config({ path: "config/.env" });
 
 // ✅ Cloudinary config
 cloudinary.config({
@@ -56,20 +58,22 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
-const port = process.env.PORT || 8000;
+const port = process.env.PORT;
 
 const main = async () => {
   try {
-    await connectDB(); // ✅ connect to MongoDB
+    await connectDB();
+    // Start the server
     app.listen(port, () => {
-      console.log(`✅ Server running on port ${port}`);
+      console.log(`Server running on port ${port}.`);
     });
   } catch (error) {
-    console.error("❌ Failed to start server:", error.message);
     await mongoose.disconnect();
-    process.exit(1);
-  }
+    app.close((err) => {
+      console.log(err);
+    });
+    console.log("failed to start server", error);
+  }
 };
 
 main();
