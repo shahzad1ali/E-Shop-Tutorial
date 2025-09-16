@@ -13,76 +13,33 @@ const { isAuthenticated, isAdmin } = require("../middleware/auth");
 const router = express.Router();
 
 // ---------------- CREATE USER ----------------
-// router.post("/create-user", async (req, res, next) => {
-//   try {
-//     const { name, email, password, avatarUrl } = req.body;
-
-//     const userExists = await User.findOne({ email });
-//     if (userExists) {
-//       return next(new ErrorHandler("User already exists", 400));
-//     }
-
-//     const user = { name, email, password, avatar: { url: avatarUrl || "" } };
-//     const activationToken = createActivationToken(user);
-//     const activationUrl = `https://multivendor-self.vercel.app/activation/${activationToken}`;
-
-//     await sendMail({
-//       email: user.email,
-//       subject: "Activate your account",
-//       message: `Hello ${user.name}, please click the link to activate your account: ${activationUrl}`,
-//     });
-
-//     res.status(201).json({
-//       success: true,
-//       message: `Please check your email (${user.email}) to activate your account.`,
-//     });
-//   } catch (error) {
-//     return next(new ErrorHandler(error.message, 500));
-//   }
-// });
-
-// ---------------- CREATE USER ----------------
 router.post("/create-user", async (req, res, next) => {
   try {
     const { name, email, password, avatarUrl } = req.body;
 
-    // check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       return next(new ErrorHandler("User already exists", 400));
     }
 
-    // temporary user object (not saved yet)
-    const user = { 
-      name, 
-      email, 
-      password, 
-      avatar: { url: avatarUrl || "" } 
-    };
-
-    // generate activation token
+    const user = { name, email, password, avatar: { url: avatarUrl || "" } };
     const activationToken = createActivationToken(user);
     const activationUrl = `https://multivendor-self.vercel.app/activation/${activationToken}`;
 
-    // send activation mail
     await sendMail({
       email: user.email,
       subject: "Activate your account",
       message: `Hello ${user.name}, please click the link to activate your account: ${activationUrl}`,
     });
 
-    // return response (token included for testing in Postman)
     res.status(201).json({
       success: true,
       message: `Please check your email (${user.email}) to activate your account.`,
-      activationToken,
-      activationUrl,
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }
 });
-
 
 // ---------------- CREATE ACTIVATION TOKEN ----------------
 const createActivationToken = (user) => {
